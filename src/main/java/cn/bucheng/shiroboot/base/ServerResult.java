@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class ServerResult implements Serializable {
     private Integer code;
-    private String messge;
+    private String message;
     private Object data;
 
     public Integer getCode() {
@@ -22,12 +22,12 @@ public class ServerResult implements Serializable {
         this.code = code;
     }
 
-    public String getMessge() {
-        return messge;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMessge(String messge) {
-        this.messge = messge;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Object getData() {
@@ -40,7 +40,7 @@ public class ServerResult implements Serializable {
 
     public ServerResult(Integer code, String messge, Object data) {
         this.code = code;
-        this.messge = messge;
+        this.message = messge;
         this.data = data;
     }
 
