@@ -1,5 +1,6 @@
 package cn.bucheng.shiroboot.controller;
 
+import cn.bucheng.shiroboot.base.ServerResult;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -31,18 +32,11 @@ public class UserController {
         try {
             subject.login(token);
         } catch (UnknownAccountException e) {
-            return "username is not right";
+            return ServerResult.fail("username is not right");
         } catch (IncorrectCredentialsException e) {
-            return "password is not right";
+            return ServerResult.fail("password is not right");
         }
-        return "login success";
-    }
-
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public Object test(){
-        return "test";
+        return ServerResult.success("login success");
     }
 
 

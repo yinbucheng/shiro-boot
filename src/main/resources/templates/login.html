@@ -70,11 +70,10 @@
             data: {username: username,password:password},
             async: false,
             success: function (data) {
-                layer.msg(data);
-                if (data == "success") {
-                    layer.msg('成功');
-                } else {
-                    layer.msg('失败');
+                if(data.code==200){
+                    window.location="/index"
+                }else{
+                    layer.msg(data.message);
                 }
             }
         });
