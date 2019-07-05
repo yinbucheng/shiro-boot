@@ -37,8 +37,8 @@ public class ShiroConfig {
 
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //这里表示下面不需要授权访问
-        filterChainDefinitionMap.put("/user/login", ShiroConstant.ANONYMITY);
-        filterChainDefinitionMap.put("/user/test","perms[/user/test]");
+        loadPublic(filterChainDefinitionMap);
+        loadAuthority(filterChainDefinitionMap);
         //这里表示配置授权才能进行访问(这里一定要在最后)
         filterChainDefinitionMap.put("/*", ShiroConstant.AUTHORIZATIOIN);
         factoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -62,6 +62,16 @@ public class ShiroConfig {
     }
 
 
+
+    //加载权限
+    public void loadAuthority( Map<String, String> params){
+        params.put("/user/test","perms[/user/test]");
+    }
+
+    //加载不需要进行认证的地址
+    public void loadPublic(Map<String,String> params){
+        params.put("/user/login", ShiroConstant.ANONYMITY);
+    }
 
 
 }
