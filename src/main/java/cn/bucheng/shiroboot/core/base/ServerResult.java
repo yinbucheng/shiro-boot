@@ -1,4 +1,4 @@
-package cn.bucheng.shiroboot.base;
+package cn.bucheng.shiroboot.core.base;
 
 import java.io.Serializable;
 

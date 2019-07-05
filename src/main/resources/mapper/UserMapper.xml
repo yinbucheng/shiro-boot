@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bucheng.shiroboot.mapper.UserMapper">
+   <select id="findByName" resultType="user" parameterType="string">
+       select * from user where name = #{name}
+   </select>
+
+    <select id="listResourcesByUserName" resultType="resource" parameterType="string">
+        select a.* from resource a inner join role_resource b on a.id = b.resource_id inner join user_role c on c.role_id = b.role_id inner join user d on d.id = b.user_id where d.name = #{username}
+    </select>
+
+    <select id="listRolesByUserName" resultType="role" parameterType="string">
+        select a.* from role a inner join user_role b on a.id = b.role_id inner join user c on c.id = b.user_id where c.name = #{username}
+    </select>
+</mapper>

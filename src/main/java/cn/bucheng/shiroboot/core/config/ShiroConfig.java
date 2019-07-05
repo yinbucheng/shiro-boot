@@ -1,23 +1,23 @@
-package cn.bucheng.shiroboot.config;
+package cn.bucheng.shiroboot.core.config;
 
-import cn.bucheng.shiroboot.constant.ShiroConstant;
+import cn.bucheng.shiroboot.core.constant.ShiroConstant;
 import cn.bucheng.shiroboot.core.SimpleAuthorityRealm;
-import org.apache.shiro.mgt.SecurityManager;
+import cn.bucheng.shiroboot.mapper.ResourceMapper;
+import cn.bucheng.shiroboot.mapper.UserMapper;
+import cn.bucheng.shiroboot.model.po.ResourcePO;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.realm.SimpleAccountRealm;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +29,8 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
+    @Autowired
+    private ResourceMapper resourceMapper;
 
 
     @Bean
@@ -65,7 +67,13 @@ public class ShiroConfig {
 
     //加载权限
     public void loadAuthority( Map<String, String> params){
-        params.put("/user/test","perms[/user/test]");
+        Wrapper<ResourcePO> wrapper = new EntityWrapper<>();
+        List<ResourcePO> resourcePOS = resourceMapper.selectList(wrapper);
+        if(null!=resourcePOS){
+            for(ResourcePO resourcePO:resourcePOS){
+                params.put(resourcePO.getResUrl(),"perms["+resourcePO.getResUrl()+"]");
+            }
+        }
     }
 
     //加载不需要进行认证的地址

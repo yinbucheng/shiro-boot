@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <mybatis-plus.version>2.1.9</mybatis-plus.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,18 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- Mybatis-plus依赖 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatisplus-spring-boot-starter</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
 
         <dependency>

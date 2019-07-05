@@ -10,5 +10,5 @@ import org.springframework.stereotype.Controller;
  * @version:
  */
 @Controller
-public class PermissionController {
+public class ResourceController {
 }

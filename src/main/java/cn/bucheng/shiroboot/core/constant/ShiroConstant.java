@@ -1,4 +1,4 @@
-package cn.bucheng.shiroboot.constant;
+package cn.bucheng.shiroboot.core.constant;
 
 /**
  * @author ：yinchong
