@@ -7,9 +7,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
