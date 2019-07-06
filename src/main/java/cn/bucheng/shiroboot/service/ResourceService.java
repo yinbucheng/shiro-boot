@@ -13,4 +13,5 @@ public interface ResourceService extends IService<ResourcePO> {
     Page<ResourceDTO> listAll(BaseVO vo);
     void save(ResourcePO po)throws  Exception;
     List<ResourceDTO> listByRoleId(long roleId);
+    void delete(Long id)throws Exception;
 }

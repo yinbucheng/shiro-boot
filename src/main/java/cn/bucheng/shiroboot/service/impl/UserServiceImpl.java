@@ -1,7 +1,6 @@
 package cn.bucheng.shiroboot.service.impl;
 
 import cn.bucheng.shiroboot.core.exception.AccountExistException;
-import cn.bucheng.shiroboot.core.exception.RoleExistException;
 import cn.bucheng.shiroboot.mapper.UserMapper;
 import cn.bucheng.shiroboot.mapper.UserRoleMapper;
 import cn.bucheng.shiroboot.model.po.UserPO;

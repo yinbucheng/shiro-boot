@@ -59,14 +59,20 @@ public class ResourceController {
 
     @RequestMapping("/delete")
     @ResponseBody
-    public Object delete(Long id){
-        resourceService.deleteById(id);
+    public Object delete(Long id) {
+
+        try {
+            resourceService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResult.fail("正在被其他资源使用");
+        }
         return ServerResult.success();
     }
 
     @RequestMapping("/listResourceByRoleId")
     @ResponseBody
-    public Object listResourceByRoleId(Long rid){
+    public Object listResourceByRoleId(Long rid) {
         List<ResourceDTO> resourceDTOS = resourceService.listByRoleId(rid);
         return ServerResult.successWithData(resourceDTOS);
     }

@@ -1,11 +1,14 @@
 package cn.bucheng.shiroboot.service.impl;
 
+import cn.bucheng.shiroboot.core.exception.OtherModuleUseException;
 import cn.bucheng.shiroboot.core.exception.RoleExistException;
 import cn.bucheng.shiroboot.mapper.RoleMapper;
 import cn.bucheng.shiroboot.mapper.RoleResourceMapper;
+import cn.bucheng.shiroboot.mapper.UserRoleMapper;
 import cn.bucheng.shiroboot.model.dto.RoleDTO;
 import cn.bucheng.shiroboot.model.po.RolePO;
 import cn.bucheng.shiroboot.model.po.RoleResourcePO;
+import cn.bucheng.shiroboot.model.po.UserRolePO;
 import cn.bucheng.shiroboot.model.vo.RoleVO;
 import cn.bucheng.shiroboot.service.RoleService;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -32,6 +35,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO> implements 
     private RoleMapper roleMapper;
     @Autowired
     private RoleResourceMapper roleResourceMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     @Override
     public Page<RolePO> listAll(RoleVO roleVO) {
@@ -64,7 +69,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, RolePO> implements 
     }
 
     @Override
-    public void deleteRole(long id) {
+    @Transactional
+    public void deleteRole(long id)throws Exception {
+        Integer rows = userRoleMapper.selectCount(new EntityWrapper<UserRolePO>().eq("role_id", id));
+        if(rows>0){
+            throw new OtherModuleUseException();
+        }
         roleResourceMapper.delete(new EntityWrapper<RoleResourcePO>().eq("role_id", id));
         roleMapper.deleteById(id);
     }

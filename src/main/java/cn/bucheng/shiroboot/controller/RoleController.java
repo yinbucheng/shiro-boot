@@ -47,7 +47,12 @@ public class RoleController {
     @RequestMapping("/delete")
     @ResponseBody
     public Object delete(Long id) {
-        roleService.deleteRole(id);
+        try {
+            roleService.deleteRole(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResult.fail("正在被其他资源使用");
+        }
         return ServerResult.success();
     }
 

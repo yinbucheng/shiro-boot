@@ -319,7 +319,7 @@
                         layer.msg('删除成功');
                         table.ajax.reload();
                     } else {
-                        layer.msg('删除失败');
+                        layer.msg(data.message);
                     }
                 }
             });

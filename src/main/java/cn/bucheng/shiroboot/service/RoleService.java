@@ -11,7 +11,7 @@ import java.util.List;
 public interface RoleService extends IService<RolePO> {
     Page<RolePO> listAll(RoleVO vo);
     void addRole(String name)throws Exception;
-    void deleteRole(long id);
+    void deleteRole(long id)throws Exception;
     List<RoleDTO> listRoleByUserId(Long userId);
     void addRoleResource(Long roleId,Long[] resourceIds);
 }
