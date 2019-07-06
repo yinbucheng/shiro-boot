@@ -1,6 +1,7 @@
 package cn.bucheng.shiroboot.service.impl;
 
 import cn.bucheng.shiroboot.core.exception.AccountExistException;
+import cn.bucheng.shiroboot.core.exception.RoleExistException;
 import cn.bucheng.shiroboot.mapper.UserMapper;
 import cn.bucheng.shiroboot.mapper.UserRoleMapper;
 import cn.bucheng.shiroboot.model.po.UserPO;
@@ -13,8 +14,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -70,5 +73,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserPO> implements 
         wrapper.eq("user_id", id);
         userRoleMapper.delete(wrapper);
         userMapper.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public void addUserRole(Long userId, Long[] roleIds) throws Exception {
+        userRoleMapper.delete(new EntityWrapper<UserRolePO>().eq("user_id",userId));
+        if(roleIds==null){
+            return;
+        }
+        List<UserRolePO> pos = new LinkedList<>();
+        for (Long roleId : roleIds) {
+            Integer rows = userRoleMapper.selectCount(new EntityWrapper<UserRolePO>().eq("user_id", userId).and().eq("role_id", roleId));
+            if (rows > 0) {
+               continue;
+            }
+            UserRolePO po = new UserRolePO();
+            po.setUserId(userId);
+            po.setRoleId(roleId);
+            po.setCreateTime(new Date());
+            po.setUpdateTime(new Date());
+            pos.add(po);
+        }
+        if(pos.size()==0)
+            return;
+        userRoleMapper.batchSave(pos);
     }
 }

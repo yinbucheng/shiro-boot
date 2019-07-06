@@ -231,8 +231,8 @@
                         }
                     },
                     "targets": 4
-                },
-            ],
+                }
+            ]
 
         });
 
@@ -270,18 +270,19 @@
         $.ajax({
             async: false,
             type: "POST",
-            data: {uid: id},
-            url: 'roles/rolesWithSelected',
+            data: {userId: id},
+            url: 'role/listRoleByUserId',
             dataType: 'json',
             success: function (data) {
+                console.log(data)
                 $("#boxRoleForm").empty();
                 var htm = "<input type='hidden' name='userid' value='" + id + "'>";
                 for (var i = 0; i < data.length; i++) {
                     htm += "<div class='checkbox'><label><input type='checkbox' name='roleid' value='" + data[i].id + "'";
-                    if (data[i].selected == 1) {
+                    if (data[i].selected) {
                         htm += " checked='checked'";
                     }
-                    htm += "/>" + data[i].roledesc + "</label></div>";
+                    htm += "/>" + data[i].roleDesc + "</label></div>";
                 }
                 $("#boxRoleForm").append(htm);
             }
@@ -295,11 +296,11 @@
         $.ajax({
             cache: true,
             type: "POST",
-            url: 'users/saveUserRoles',
+            url: 'user/addUserRole',
             data: $('#boxRoleForm').serialize(),// 你的formid
             async: false,
             success: function (data) {
-                if (data == "success") {
+                if (data.code==200) {
                     layer.msg('保存成功');
                     $('#selectRole').modal('hide');
                 } else {

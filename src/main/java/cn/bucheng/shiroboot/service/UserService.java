@@ -9,4 +9,5 @@ public interface UserService extends IService<UserPO> {
     void register(String username,String nickname, String password)throws Exception;
     Page<UserPO> listAll(UserVO userVO);
     void deleteUser(Long id);
+    void addUserRole(Long userId,Long[] roleId)throws Exception;
 }

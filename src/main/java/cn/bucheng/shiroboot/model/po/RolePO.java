@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class RolePO extends BasePO implements Serializable {
     @TableId
     private Long id;
-    @TableField
+    @TableField("role_desc")
     private String roleDesc;
 
     public Long getId() {

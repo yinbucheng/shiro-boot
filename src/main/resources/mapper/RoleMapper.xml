@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bucheng.shiroboot.mapper.RoleMapper">
+    <resultMap id="roleDTO" type="cn.bucheng.shiroboot.model.dto.RoleDTO">
+        <id property="id" column="id"/>
+        <result column="role_desc" property="roleDesc"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="selected" property="selected"/>
+    </resultMap>
+   <select id="findByName" resultType="role" >
+       select * from role where role_desc = #{name} order by update_time desc
+   </select>
+
+    <select id="listByUserId" resultMap="roleDTO">
+        select *,(case when (select id from user_role b where b.role_id = a.id and b.user_id =#{userId}) then 1 else 0 end) as selected from role a
+    </select>
+
+</mapper>

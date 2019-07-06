@@ -1,7 +1,13 @@
 package cn.bucheng.shiroboot.controller;
 
+import cn.bucheng.shiroboot.core.base.ServerResult;
+import cn.bucheng.shiroboot.model.vo.RoleVO;
+import cn.bucheng.shiroboot.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author ：yinchong
@@ -13,9 +19,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("role")
 public class RoleController {
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping
-    public String role(){
+    public String role() {
         return "role/roles";
+    }
+
+    @RequestMapping("/listAll")
+    @ResponseBody
+    public Object listAll(RoleVO vo) {
+        return roleService.listAll(vo);
+    }
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public Object addRole(String roledesc) {
+        try {
+            roleService.addRole(roledesc);
+        } catch (Exception e) {
+            return ServerResult.fail("角色名称已经存在");
+        }
+        return ServerResult.success();
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Object delete(Long id) {
+        roleService.deleteRole(id);
+        return ServerResult.success();
+    }
+
+    @RequestMapping("/listRoleByUserId")
+    @ResponseBody
+    public Object listRoleByUserId(Long userId) {
+        return roleService.listRoleByUserId(userId);
+    }
+
+    @RequestMapping("/addRoleResource")
+    @ResponseBody
+    public Object addRoleResource(Long roleId, Long[] resourceIds) {
+        roleService.addRoleResource(roleId, resourceIds);
+        return ServerResult.success();
     }
 }

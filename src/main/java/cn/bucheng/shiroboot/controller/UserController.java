@@ -71,5 +71,17 @@ public class UserController {
         return userService.listAll(userVO);
     }
 
+    @RequestMapping("/addUserRole")
+    @ResponseBody
+    public Object addUserRole(Long userid,Long[] roleid){
+        try {
+            userService.addUserRole(userid,roleid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ServerResult.fail("已经存在");
+        }
+        return ServerResult.success();
+    }
+
 
 }

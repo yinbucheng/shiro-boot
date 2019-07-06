@@ -1,6 +1,7 @@
 package cn.bucheng.shiroboot.model.po;
 
 import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @describe
  */
 @TableName("role_resource")
+@Alias("roleResource")
 public class RoleResourcePO  extends BasePO implements Serializable {
     private Long id;
     private Long roleId;

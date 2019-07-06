@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.bucheng.shiroboot.mapper.RoleResourceMapper">
+    <insert id="batchSave" parameterType="roleResource">
+        insert into role_resource(role_id,resource_id,create_time,update_time)
+        <foreach collection="datas" item="item"  open="values" separator=","  >
+            (#{item.roleId},#{item.resourceId},#{item.createTime},#{item.updateTime})
+        </foreach>
+    </insert>
+
+</mapper>

@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.bucheng.shiroboot.mapper.ResourceMapper">
-   <select id="listResource" resultType="resource" >
+    <resultMap id="resourceDto" type="cn.bucheng.shiroboot.model.dto.ResourceDTO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name" javaType="string"/>
+        <result column="res_url" property="resUrl" javaType="string"/>
+        <result column="type" property="type" javaType="int"/>
+        <result column="sort" property="sort" javaType="int"/>
+        <result column="pname" property="parentName" javaType="string"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="checked" property="checked"/>
+    </resultMap>
+    <select id="listResource" resultType="resource">
        select * from resource a inner join role_resource b on a.id = b.resource_id inner join user_role c on b.role_id = c.role_id where c.user_id =#{userId} and a.type =#{type} order by a.sort asc
    </select>
+
+    <select id="pageListResource" resultMap="resourceDto">
+        select *,(select name from resource b where b.id = a.parent_id) as pname from resource a order by a.update_time desc limit #{start},#{size}
+    </select>
+
+    <select id="listResourceByRoleId" resultMap="resourceDto">
+        select *,(case when (select id from role_resource b where b.resource_id = a.id and b.role_id =#{roleId} ) then 1 else 0 end)as checked from resource a
+    </select>
 
 </mapper>
