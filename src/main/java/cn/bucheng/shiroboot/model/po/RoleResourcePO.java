@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @create 2019/7/5 22:39
  * @describe
  */
-@TableName("role_resources")
+@TableName("role_resource")
 public class RoleResourcePO  extends BasePO implements Serializable {
     private Long id;
     private Long roleId;

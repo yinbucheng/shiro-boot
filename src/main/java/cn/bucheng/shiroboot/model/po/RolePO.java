@@ -2,6 +2,8 @@ package cn.bucheng.shiroboot.model.po;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import org.apache.ibatis.type.Alias;
 
 import java.io.Serializable;
 
@@ -10,6 +12,8 @@ import java.io.Serializable;
  * @create 2019/7/5 22:38
  * @describe
  */
+@TableName("role")
+@Alias("role")
 public class RolePO extends BasePO implements Serializable {
     @TableId
     private Long id;

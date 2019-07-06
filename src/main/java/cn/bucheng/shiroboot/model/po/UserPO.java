@@ -22,7 +22,16 @@ public class UserPO extends BasePO implements Serializable {
     @TableField
     private String userName;
     private String password;
+    private String nickName;
     private Boolean enable;
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
 
     public Long getId() {
         return id;

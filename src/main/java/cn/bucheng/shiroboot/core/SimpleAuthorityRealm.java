@@ -39,6 +39,8 @@ public class SimpleAuthorityRealm extends AuthorizingRealm {
         if (null == user) {
             return null;
         }
+        Subject subject = SecurityUtils.getSubject();
+        subject.getSession().setAttribute("user",user);
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo();
         SimplePrincipalCollection collection = new SimplePrincipalCollection();
         collection.add(account, user.getUserName());

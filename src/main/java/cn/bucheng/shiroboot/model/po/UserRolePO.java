@@ -1,5 +1,7 @@
 package cn.bucheng.shiroboot.model.po;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @create 2019/7/5 22:39
  * @describe
  */
+@TableName("user_role")
 public class UserRolePO extends BasePO implements Serializable {
     private Long id;
     private Long userId;

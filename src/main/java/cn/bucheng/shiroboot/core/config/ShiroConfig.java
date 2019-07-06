@@ -79,6 +79,12 @@ public class ShiroConfig {
     //加载不需要进行认证的地址
     public void loadPublic(Map<String,String> params){
         params.put("/user/login", ShiroConstant.ANONYMITY);
+        params.put("/logout", "logout");
+        params.put("/css/**",ShiroConstant.ANONYMITY);
+        params.put("/js/**",ShiroConstant.ANONYMITY);
+        params.put("/img/**",ShiroConstant.ANONYMITY);
+        params.put("/font-awesome/**",ShiroConstant.ANONYMITY);
+        params.put("/templates/**",ShiroConstant.ANONYMITY);
     }
 
 

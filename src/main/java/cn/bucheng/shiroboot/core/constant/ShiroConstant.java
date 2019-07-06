@@ -11,4 +11,6 @@ public class ShiroConstant {
     public static final String AUTHORIZATIOIN = "authc";
     public static final String ANONYMITY = "anon";
     public static final String PERMS = "perms";
+    public static int TOP =0;
+    public static int FIRST = 1;
 }

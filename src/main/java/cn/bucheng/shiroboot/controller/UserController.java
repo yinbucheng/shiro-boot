@@ -2,6 +2,7 @@ package cn.bucheng.shiroboot.controller;
 
 import cn.bucheng.shiroboot.core.base.ServerResult;
 import cn.bucheng.shiroboot.core.exception.AccountExistException;
+import cn.bucheng.shiroboot.model.vo.UserVO;
 import cn.bucheng.shiroboot.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -11,6 +12,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,15 +47,28 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public Object register(String username,String password){
+    public Object register(String username, String nickname, String password) {
         try {
-            userService.register(username,password);
+            userService.register(username, nickname, password);
         } catch (AccountExistException e) {
-           return ServerResult.fail("username exist");
-        }catch (Exception e){
+            return ServerResult.fail("username exist");
+        } catch (Exception e) {
             return ServerResult.fail("system error");
         }
         return ServerResult.success();
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Object deleteUser(Long id) {
+        userService.deleteUser(id);
+        return ServerResult.success();
+    }
+
+    @RequestMapping("/listAll")
+    @ResponseBody
+    public Object listAll(UserVO userVO) {
+        return userService.listAll(userVO);
     }
 
 
